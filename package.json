@@ -1,0 +1,30 @@
+{
+  "name": "examringorg",
+  "version": "1.0.0",
+  "description": "Exam Training Portal",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KarthickRajaG/examringorg.git"
+  },
+  "author": "Karthick Raja G",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KarthickRajaG/examringorg/issues"
+  },
+  "homepage": "https://github.com/KarthickRajaG/examringorg#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-mongo-sanitize": "^2.2.0",
+    "firebase": "^9.15.0",
+    "firebase-admin": "^11.4.1",
+    "mongoose": "^6.8.3",
+    "morgan": "^1.10.0"
+  }
+}
