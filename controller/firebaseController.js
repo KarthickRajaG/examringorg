@@ -11,7 +11,7 @@ admin.initializeApp({
 const requiresAuth = async (req,res,next) =>{
     const idToken = req.header("Authorization")
     if(!idToken){
-        return next(new AppError('Please pass firebase auth token ',400));
+        return res.status(400).send({status:false, message:'Please pass firebase auth token '})
     }
     const bearer = idToken.split(' ')
     const token = bearer[1]
