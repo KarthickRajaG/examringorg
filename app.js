@@ -29,10 +29,12 @@ app.use(express.static(publicDir))
 
 //routers
 const userRoutes = require('./routes/userRoutes')
+const adminRoutes = require('./routes/adminRoutes')
 
 
 // router middlewares
 app.use("/api/v1/user", userRoutes)
+app.use("/api/v1/admin", adminRoutes)
 
 
 // to handled unregister endpoint
