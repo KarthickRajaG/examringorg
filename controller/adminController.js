@@ -21,4 +21,4 @@ exports.addExams = async (req,res) => {
     } else {
         res.send({status:false, message:"Exam not added"})
     }
-}
+} 
