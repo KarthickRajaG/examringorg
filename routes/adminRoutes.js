@@ -4,12 +4,14 @@ const adminController = require("../controller/adminController")
 
 // admin login
 router.post("/adminLogin",adminController.adminLogin)
+router.get("/getAdminDetails/:adminId", adminController.getAdminDetails)
+router.get("/userList", adminController.userList)
 
 // add Exams
-router.post("/addExams", requiresAuth, adminController.addExams)
-router.get("/getExams", requiresAuth, adminController.getExams)
-router.get("/getOneExam/:examId", requiresAuth, adminController.getOneExam)
-router.post("/updateExam", requiresAuth, adminController.updateExam)
-router.get("/deleteExam/:examId", requiresAuth, adminController.deleteExam)
+router.post("/addExams", adminController.addExams)
+router.get("/getExams", adminController.getExams)
+router.get("/getOneExam/:examId", adminController.getOneExam)
+router.post("/updateExam", adminController.updateExam)
+router.get("/deleteExam/:examId", adminController.deleteExam)
 
 module.exports = router
