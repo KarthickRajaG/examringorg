@@ -7,7 +7,7 @@ const Helper = require('../utils/helper')
 
 // adminLogin
 exports.adminLogin = async (req,res) => {
-    const authParams = config.SALT
+    const authParams = config.SECRET_KEY
   if (!Helper.checkAuthToken(req.headers.auth_token, authParams)) {
     return res.status(200).json({ success: false, message: 'Authentication Failed', parameters: null })
   }
@@ -26,6 +26,10 @@ exports.adminLogin = async (req,res) => {
 
 // getAdminDetails
 exports.getAdminDetails = async (req,res) => {
+    const authParams = config.SECRET_KEY
+    if (!Helper.checkAuthToken(req.headers.auth_token, authParams)) {
+      return res.status(200).json({ success: false, message: 'Authentication Failed', parameters: null })
+    }
     try{
      let found = await User.findOne({_id:req.params.adminId})
      if(found) {
@@ -41,6 +45,10 @@ exports.getAdminDetails = async (req,res) => {
 
 // addExams
 exports.addExams = async (req,res) => {
+    const authParams = config.SECRET_KEY
+    if (!Helper.checkAuthToken(req.headers.auth_token, authParams)) {
+      return res.status(200).json({ success: false, message: 'Authentication Failed', parameters: null })
+    }
     try{
     let addExam = await Exam.create(req.body)
     if(addExam) {
@@ -56,6 +64,10 @@ exports.addExams = async (req,res) => {
 
 // getExams
 exports.getExams = async (req,res) => {
+    const authParams = config.SECRET_KEY
+    if (!Helper.checkAuthToken(req.headers.auth_token, authParams)) {
+      return res.status(200).json({ success: false, message: 'Authentication Failed', parameters: null })
+    }
     try {
     let found = await Exam.find({})
     if(found.length>0) {
@@ -71,6 +83,10 @@ exports.getExams = async (req,res) => {
 
 // getOneExam Details
 exports.getOneExam = async (req,res) => {
+    const authParams = config.SECRET_KEY
+    if (!Helper.checkAuthToken(req.headers.auth_token, authParams)) {
+      return res.status(200).json({ success: false, message: 'Authentication Failed', parameters: null })
+    }
     try{
     let found = await Exam.findOne({_id:req.params.examId})
     if(found) {
@@ -86,6 +102,10 @@ exports.getOneExam = async (req,res) => {
 
 // update Exam
 exports.updateExam = async (req,res) => {
+    const authParams = config.SECRET_KEY
+    if (!Helper.checkAuthToken(req.headers.auth_token, authParams)) {
+      return res.status(200).json({ success: false, message: 'Authentication Failed', parameters: null })
+    }
     try{
     let updated = await Exam.findOneAndUpdate({_id:req.body.examId}, req.body)
     if(updated) {
@@ -101,6 +121,10 @@ exports.updateExam = async (req,res) => {
 
 // delete exam
 exports.deleteExam = async (req,res) => {
+    const authParams = config.SECRET_KEY
+    if (!Helper.checkAuthToken(req.headers.auth_token, authParams)) {
+      return res.status(200).json({ success: false, message: 'Authentication Failed', parameters: null })
+    }
     try{
     let deleted = await Exam.findOneAndDelete({_id:req.params.examId})
     if(deleted) {
