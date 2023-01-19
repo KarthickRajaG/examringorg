@@ -3,7 +3,7 @@ const {requiresAuth,generateToken} = require("../controller/firebaseController")
 const adminController = require("../controller/adminController")
 
 // admin login
-router.post("/adminLogin",requiresAuth, adminController.adminLogin)
+router.post("/adminLogin", adminController.adminLogin)
 router.get("/getAdminDetails/:adminId", requiresAuth, adminController.getAdminDetails)
 router.get("/userList", requiresAuth, adminController.userList)
 
