@@ -1,6 +1,8 @@
 const Exam = require('../models/examModel')
 const User = require('../models/userModel')
 const md5 = require('md5')
+const MockTest = require('../models/mocktestModel')
+const MockTestSection = require('../models/mocktestsectionModel') 
 
 
 // adminLogin
@@ -121,4 +123,157 @@ exports.userList = async (req,res) => {
         console.log(e)
         res.send({status:false, message:"error occurred"})
     }
+}
+
+
+// addMockTest
+exports.addMockTest = async (req,res) => {
+    try{
+    let addMockTest = await MockTest.create(req.body)
+    if(addMockTest) {
+        res.send({status:true, message:"Mock Test added", data:addMockTest})
+    } else {
+        res.send({status:false, message:"Mock Test not added"})
+    }
+} catch(e) {
+    console.log(e)
+        res.send({status:false, message:"Error occurred"})
+}
+}
+
+// getMockTest
+exports.getMockTest = async (req,res) => {
+    try {
+    let found = await MockTest.find({})
+    if(found.length>0) {
+        res.send({status:true, message:"Mock Test details", data:found})
+    } else {
+        res.send({status:false, message:"No Mock Test details", data:[]})
+    }
+} catch (e) {
+    console.log(e)
+    res.send({status:false, message:"Error occurred"})
+}
+}
+
+// getOneMockTest Details
+exports.getOneMockTest = async (req,res) => {
+    try{
+    let found = await MockTest.findOne({_id:req.params.mockTestId})
+    if(found) {
+        res.send({status:true, message:"Mock Test details", data:found})
+    } else {
+        res.send({status:false, message:"No Mock Test details"})
+    }
+} catch (e) {
+    console.log(e)
+    res.send({status:false, message:"Error occurred"})
+}
+}
+
+// update Mock Test
+exports.updateMockTest = async (req,res) => {
+    try{
+    let updated = await MockTest.findOneAndUpdate({_id:req.body.mockTestId}, req.body)
+    if(updated) {
+        res.send({status:true, message:"Mock Test updated"})
+    } else {
+        res.send({status:false, message:"Mock Test not found"})
+    }
+} catch (e) {
+    console.log(e)
+    res.send({status:false, message:"Error occurred"})
+}
+}
+
+
+// delete Mock Test
+exports.deleteMockTest = async (req,res) => {
+    try{
+    let deleted = await MockTest.findOneAndDelete({_id:req.params.mockTestId})
+    if(deleted) {
+        res.send({status:true, message:"Mock Test deleted"})
+    } else {
+        res.send({status:false, message:"Mock Test not found"})
+    }
+} catch (e) {
+    console.log(e)
+    res.send({status:false, message:"Error occurred"})
+}
+}
+
+// add Mock Test Section
+exports.addMockTestSection = async (req,res) => {
+    try{
+    let addMockTestSection = await MockTestSection.create(req.body)
+    if(addMockTestSection) {
+        res.send({status:true, message:"Mock Test Section added", data:addMockTestSection})
+    } else {
+        res.send({status:false, message:"Mock Test Section not added"})
+    }
+} catch(e) {
+    console.log(e)
+        res.send({status:false, message:"Error occurred"})
+}
+}
+
+// getMockTest
+exports.getMockTestSection = async (req,res) => {
+    try {
+    let found = await MockTestSection.find({})
+    if(found.length>0) {
+        res.send({status:true, message:"Mock Test Section details", data:found})
+    } else {
+        res.send({status:false, message:"No Mock Test Section details", data:[]})
+    }
+} catch (e) {
+    console.log(e)
+    res.send({status:false, message:"Error occurred"})
+}
+}
+
+// getOne MockTest section Details
+exports.getOneMockTestSection = async (req,res) => {
+    try{
+    let found = await MockTestSection.findOne({_id:req.params.mockTestSectionId})
+    if(found) {
+        res.send({status:true, message:"Mock Test Section details", data:found})
+    } else {
+        res.send({status:false, message:"No Mock Test Section details"})
+    }
+} catch (e) {
+    console.log(e)
+    res.send({status:false, message:"Error occurred"})
+}
+}
+
+// update Mock Test section
+exports.updateMockTestSection = async (req,res) => {
+    try{
+    let updated = await MockTestSection.findOneAndUpdate({_id:req.body.mockTestSectionId}, req.body)
+    if(updated) {
+        res.send({status:true, message:"Mock Test Section updated"})
+    } else {
+        res.send({status:false, message:"Mock Test Section not found"})
+    }
+} catch (e) {
+    console.log(e)
+    res.send({status:false, message:"Error occurred"})
+}
+}
+
+
+// delete Mock Test Section 
+exports.deleteMockTestSection = async (req,res) => {
+    try{
+    let deleted = await MockTestSection.findOneAndDelete({_id:req.params.mockTestSectionId})
+    if(deleted) {
+        res.send({status:true, message:"Mock Test Section deleted"})
+    } else {
+        res.send({status:false, message:"Mock Test section not found"})
+    }
+} catch (e) {
+    console.log(e)
+    res.send({status:false, message:"Error occurred"})
+}
 }
