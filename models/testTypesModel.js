@@ -8,7 +8,7 @@ const testTypeSchema = new mongoose.Schema({
     exam:{
         type:mongoose.Schema.Types.ObjectId,
         ref: 'Exam',
-        // autopopulate:true
+        autopopulate:true
     },
     isActive:{
         type:Boolean,
