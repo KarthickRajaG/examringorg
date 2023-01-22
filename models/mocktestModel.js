@@ -8,6 +8,7 @@ const mocktestSchema = new mongoose.Schema({
     testType:{
         type:mongoose.Schema.Types.ObjectId,
         ref: 'testType',
+        autopopulate:true
     },
     isActive:{
         type:Boolean,
@@ -25,4 +26,6 @@ mocktestSchema.set('toJSON', {
         delete ret.id
     }
   })
+
+mocktestSchema.plugin(require('mongoose-autopopulate'))
 module.exports = mongoose.model("Mocktest",mocktestSchema,"Mocktest")

@@ -1,6 +1,7 @@
 const Exam = require('../models/examModel')
 const User = require('../models/userModel')
 const md5 = require('md5')
+const TestType = require('../models/testTypesModel')
 const MockTest = require('../models/mocktestModel')
 const MockTestSection = require('../models/mocktestsectionModel') 
 
@@ -271,6 +272,82 @@ exports.deleteMockTestSection = async (req,res) => {
         res.send({status:true, message:"Mock Test Section deleted"})
     } else {
         res.send({status:false, message:"Mock Test section not found"})
+    }
+} catch (e) {
+    console.log(e)
+    res.send({status:false, message:"Error occurred"})
+}
+}
+
+// add Mock Test Section
+exports.addTestType = async (req,res) => {
+    try{
+    let addTestType = await TestType.create(req.body)
+    if(addTestType) {
+        res.send({status:true, message:"Test Type added", data:addTestType})
+    } else {
+        res.send({status:false, message:"Test Type not added"})
+    }
+} catch(e) {
+    console.log(e)
+        res.send({status:false, message:"Error occurred"})
+}
+}
+
+// getTestType
+exports.getTestType = async (req,res) => {
+    try {
+    let found = await TestType.find({})
+    if(found.length>0) {
+        res.send({status:true, message:"Test Type Section details", data:found})
+    } else {
+        res.send({status:false, message:"Test Type details", data:[]})
+    }
+} catch (e) {
+    console.log(e)
+    res.send({status:false, message:"Error occurred"})
+}
+}
+
+// getOne TestType Details
+exports.getOneTestType = async (req,res) => {
+    try{
+    let found = await TestType.findOne({_id:req.params.TestTypeId})
+    if(found) {
+        res.send({status:true, message:"Test type details", data:found})
+    } else {
+        res.send({status:false, message:"Test Type  details"})
+    }
+} catch (e) {
+    console.log(e)
+    res.send({status:false, message:"Error occurred"})
+}
+}
+
+// update TestType
+exports.updateTestType = async (req,res) => {
+    try{
+    let updated = await TestType.findOneAndUpdate({_id:req.body.TestTypeId}, req.body)
+    if(updated) {
+        res.send({status:true, message:"Test Type updated"})
+    } else {
+        res.send({status:false, message:"Test Type not found"})
+    }
+} catch (e) {
+    console.log(e)
+    res.send({status:false, message:"Error occurred"})
+}
+}
+
+
+// delete Mock Test Section 
+exports.deleteTestType = async (req,res) => {
+    try{
+    let deleted = await TestType.findOneAndDelete({_id:req.params.TestTypeId})
+    if(deleted) {
+        res.send({status:true, message:"Test Type deleted"})
+    } else {
+        res.send({status:false, message:"Test Type not found"})
     }
 } catch (e) {
     console.log(e)

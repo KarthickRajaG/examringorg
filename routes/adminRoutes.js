@@ -14,6 +14,13 @@ router.get("/getOneExam/:examId", requiresAuth, adminController.getOneExam)
 router.post("/updateExam", requiresAuth, adminController.updateExam)
 router.get("/deleteExam/:examId", requiresAuth, adminController.deleteExam)
 
+// testTypes
+router.post("/addTestType", requiresAuth, adminController.addTestType)
+router.get("/getTestType", requiresAuth, adminController.getTestType)
+router.get("/getOneTestType/:TestTypeId", requiresAuth, adminController.getOneTestType)
+router.post("/updateTestType", requiresAuth, adminController.updateTestType)
+router.get("/deleteTestType/:TestTypeId", requiresAuth, adminController.deleteTestType)
+
 // mocktest
 router.post("/addMockTest", requiresAuth, adminController.addMockTest)
 router.get("/getMockTest", requiresAuth, adminController.getMockTest)
