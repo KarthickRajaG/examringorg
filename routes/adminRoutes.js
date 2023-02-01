@@ -6,6 +6,8 @@ const adminController = require("../controller/adminController")
 router.post("/adminLogin", adminController.adminLogin)
 router.get("/getAdminDetails/:adminId", requiresAuth, adminController.getAdminDetails)
 router.get("/userList", requiresAuth, adminController.userList)
+// router.get("/userHistory", requiresAuth, adminController.userHistory)
+
 
 // add Exams
 router.post("/addExams", requiresAuth, adminController.addExams)

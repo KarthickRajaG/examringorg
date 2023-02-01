@@ -12,13 +12,14 @@ const requiresAuth = async (req,res,next) =>{
     const idToken = req.header("Authorization")
     if(!idToken){
         return res.status(400).send({status:false, message:'Please pass firebase auth token '})
-    }
+    } else {
     const bearer = idToken.split(' ')
     const token = bearer[1]
 
     let decodedIdToken;
     try{
         decodedIdToken = await admin.auth().verifyIdToken(token,true)
+        // console.log('decodedIdToken', decodedIdToken)
     }catch(error){
         console.log(error)
         next(error)
@@ -37,6 +38,7 @@ const requiresAuth = async (req,res,next) =>{
                 })
             }else{
                 user = await User.create({
+                    phone:decodedIdToken.phone_number,
                     email:decodedIdToken.email,
                     firebaseUid:decodedIdToken.uid,
                     firebaseSignInProvider:decodedIdToken.firebase.sign_in_provider,
@@ -44,13 +46,13 @@ const requiresAuth = async (req,res,next) =>{
                     loginType:req.body.loginType
                 })
             }
-        }else{
+        } else{
             return res.send({status:false, message:'this is wrong api url to onboard user'})
         }
-    } 
-   
+    }
     req.user = user
     next()
+ } 
 }
 
 const restrictTo = (...roles) =>{

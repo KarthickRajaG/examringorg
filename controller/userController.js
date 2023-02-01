@@ -1,3 +1,4 @@
+const UserHistory = require('../models/userHistoryModel')
 
 //user onboarding
 exports.userOnboarding = async(req,res,next) =>{
@@ -26,3 +27,13 @@ exports.login = async(req,res,next) =>{
             console.log(e)
         }   
 }
+
+// user history
+exports.userHistory = async(req,res) => {
+    let found = await UserHistory.find({})
+    if(found.length) {
+        res.send({status:true, message:"user history list", data:found})
+    } else {
+        res.send({status:false, message:"no user history data"})
+    }
+} 

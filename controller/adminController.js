@@ -38,17 +38,22 @@ exports.getAdminDetails = async (req,res) => {
 
 // addExams
 exports.addExams = async (req,res) => {
-    try{
-    let addExam = await Exam.create(req.body)
-    if(addExam) {
-        res.send({status:true, message:"Exam added", data:addExam})
+    const found = await Exam.findOne({examName:req.body.examName})
+    if(found) {
+            try{
+            let addExam = await Exam.create(req.body)
+            if(addExam) {
+                res.send({status:true, message:"Exam added", data:addExam})
+            } else {
+                res.send({status:false, message:"Exam not added"})
+            }
+        } catch(e) {
+            console.log(e)
+                res.send({status:false, message:"Error occurred"})
+        }
     } else {
-        res.send({status:false, message:"Exam not added"})
+        res.send({status:false, message:"exam name already exists"})
     }
-} catch(e) {
-    console.log(e)
-        res.send({status:false, message:"Error occurred"})
-}
 }
 
 // getExams
@@ -83,17 +88,22 @@ exports.getOneExam = async (req,res) => {
 
 // update Exam
 exports.updateExam = async (req,res) => {
-    try{
-    let updated = await Exam.findOneAndUpdate({_id:req.body.examId}, req.body)
-    if(updated) {
-        res.send({status:true, message:"Exam details updated"})
+    const found = await Exam.findOne({examName:req.body.examName})
+    if(found) {
+        try{
+        let updated = await Exam.findOneAndUpdate({_id:req.body.examId}, req.body)
+        if(updated) {
+            res.send({status:true, message:"Exam details updated"})
+        } else {
+            res.send({status:false, message:"Exam details not found"})
+        }
+        } catch (e) {
+            console.log(e)
+            res.send({status:false, message:"Error occurred"})
+        }
     } else {
-        res.send({status:false, message:"Exam details not found"})
+        res.send({status:false, message:"exam already exists"})
     }
-} catch (e) {
-    console.log(e)
-    res.send({status:false, message:"Error occurred"})
-}
 }
 
 // delete exam
@@ -129,6 +139,8 @@ exports.userList = async (req,res) => {
 
 // addMockTest
 exports.addMockTest = async (req,res) => {
+    let found = await MockTest.findOne({mocktestName:req.body.mocktestName,testType:req.body.testType})
+    if(found) {
     try{
     let addMockTest = await MockTest.create(req.body)
     if(addMockTest) {
@@ -140,6 +152,9 @@ exports.addMockTest = async (req,res) => {
     console.log(e)
         res.send({status:false, message:"Error occurred"})
 }
+    } else {
+        res.send({status:false, message:"mock test name already exists"})
+    }
 }
 
 // getMockTest
@@ -174,6 +189,8 @@ exports.getOneMockTest = async (req,res) => {
 
 // update Mock Test
 exports.updateMockTest = async (req,res) => {
+    let found = await MockTest.findOne({mocktestName:req.body.mocktestName,testType:req.body.testType})
+    if(found) {
     try{
     let updated = await MockTest.findOneAndUpdate({_id:req.body.mockTestId}, req.body)
     if(updated) {
@@ -185,6 +202,9 @@ exports.updateMockTest = async (req,res) => {
     console.log(e)
     res.send({status:false, message:"Error occurred"})
 }
+    } else {
+        res.send({status:false, message:"mock test name already exists"})
+    }
 }
 
 
@@ -205,7 +225,9 @@ exports.deleteMockTest = async (req,res) => {
 
 // add Mock Test Section
 exports.addMockTestSection = async (req,res) => {
-    try{
+    let found = await MockTestSection.findOne({sectionName:req.body.sectionName,mocktest:req.body.mocktest})
+    if(found) {
+    try{    
     let addMockTestSection = await MockTestSection.create(req.body)
     if(addMockTestSection) {
         res.send({status:true, message:"Mock Test Section added", data:addMockTestSection})
@@ -215,6 +237,9 @@ exports.addMockTestSection = async (req,res) => {
 } catch(e) {
     console.log(e)
         res.send({status:false, message:"Error occurred"})
+}
+} else {
+    res.send({status:false, message:"mock test section name already exists"})
 }
 }
 
@@ -250,6 +275,8 @@ exports.getOneMockTestSection = async (req,res) => {
 
 // update Mock Test section
 exports.updateMockTestSection = async (req,res) => {
+    let found = await MockTestSection.findOne({sectionName:req.body.sectionName,mocktest:req.body.mocktest})
+    if(found) {
     try{
     let updated = await MockTestSection.findOneAndUpdate({_id:req.body.mockTestSectionId}, req.body)
     if(updated) {
@@ -261,6 +288,9 @@ exports.updateMockTestSection = async (req,res) => {
     console.log(e)
     res.send({status:false, message:"Error occurred"})
 }
+    } else {
+        res.send({status:false, message:"mocktest section name already exists"})
+    }
 }
 
 
@@ -281,6 +311,8 @@ exports.deleteMockTestSection = async (req,res) => {
 
 // add Mock Test Section
 exports.addTestType = async (req,res) => {
+    let found = await TestType.findOne({testName:req.body.testName,exam:req.body.exam})
+    if(found) {
     try{
     let addTestType = await TestType.create(req.body)
     if(addTestType) {
@@ -292,6 +324,9 @@ exports.addTestType = async (req,res) => {
     console.log(e)
         res.send({status:false, message:"Error occurred"})
 }
+    } else {
+        res.send({status:false, message:"testType already exists"})
+    }
 }
 
 // getTestType
@@ -326,6 +361,8 @@ exports.getOneTestType = async (req,res) => {
 
 // update TestType
 exports.updateTestType = async (req,res) => {
+    let found = await TestType.findOne({testName:req.body.testName,exam:req.body.exam})
+    if(found) {
     try{
     let updated = await TestType.findOneAndUpdate({_id:req.body.TestTypeId}, req.body)
     if(updated) {
@@ -337,10 +374,13 @@ exports.updateTestType = async (req,res) => {
     console.log(e)
     res.send({status:false, message:"Error occurred"})
 }
+    } else {
+        res.send({status:false, message:"test type name alraedy exists"})
+    }
 }
 
 
-// delete Mock Test Section 
+// delete Test Type 
 exports.deleteTestType = async (req,res) => {
     try{
     let deleted = await TestType.findOneAndDelete({_id:req.params.TestTypeId})
